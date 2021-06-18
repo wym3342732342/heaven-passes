@@ -170,7 +170,7 @@ public class TestQuarkusController {
 
 ​	运行 mvn文件中的quarkus:dev
 
-![image-20210615092707801](C:\Users\18526\AppData\Roaming\Typora\typora-user-images\image-20210615092707801.png)
+![image-20210615092707801](https://gitee.com/tizo_kingbb/picImg/raw/master/img/20210618150456.png)
 
 ## 2.启动方法二:
 
