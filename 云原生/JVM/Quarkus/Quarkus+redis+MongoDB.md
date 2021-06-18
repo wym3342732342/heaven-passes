@@ -145,7 +145,6 @@ public class TestQuarkusController {
             </build>
         </profile>
     </profiles>
-    
 <build>
     <plugins>
         <plugin>
