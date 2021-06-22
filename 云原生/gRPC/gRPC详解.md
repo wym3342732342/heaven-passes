@@ -1,14 +1,14 @@
-# gRPC是什么
+# 一、gRPC是什么
 
 gRPC是什么可以用官网的一句话来概括
 
 所谓RPC（Remote Procedure Call，**远程过程调用**）框架实际是提供了一套机制，**使得应用程序之间可以进行通信**，而且也遵从server/client模型。使用的时候客户端调用server端提供的接口就像是调用本地的函数一样。
 
-# gRPC有什么好处以及在什么场景下需要用gRPC
+# 1、gRPC有什么好处以及在什么场景下需要用gRPC
 
 既然是server/client模型，那么我们直接用restful api不是也可以满足吗，为什么还需要RPC呢？下面我们就来看看RPC到底有哪些优势。
 
-## **№gRPC vs Restful API**
+## 1.1.gRPC vs Restful API
 
 gRPC和restful API都提供了一套通信机制，用于server/client模型通信，而且它们都使用http作为底层的传输协议(严格地说, gRPC使用的http2.0，而restful api则不一定)。不过gRPC还是有些特有的优势，如下：
 
@@ -18,7 +18,7 @@ gRPC和restful API都提供了一套通信机制，用于server/client模型通�
 
 √gRPC可以方便地支持流式通信（理论上通过http2.0就可以使用streaming模式, 但是通常web服务的restful api似乎很少这么用，通常的流式数据应用如视频流，一般都会使用专门的协议如HLS，RTMP等，这些就不是我们通常web服务了，而是有专门的服务器应用。）
 
-## **№使用场景**
+## 1.2.使用场景
 
 √**需要对接口进行严格约束的情况**，比如我们提供了一个公共的服务，很多人，甚至公司外部的人也可以访问这个服务，这时对于接口我们希望有更加严格的约束，我们不希望客户端给我们传递任意的数据，尤其是考虑到安全性的因素，我们通常需要对接口进行更加严格的约束。这时gRPC就可以通过protobuf来提供严格的接口约束。
 
@@ -26,21 +26,21 @@ gRPC和restful API都提供了一套通信机制，用于server/client模型通�
 
 但是，**通常我们不会去单独使用gRPC**，**而是将gRPC作为一个部件进行使用**，这是因为在生产环境，我们面对大并发的情况下，需要使用分布式系统来去处理，而gRPC并没有提供分布式系统相关的一些必要组件。而且，真正的线上服务还需要提供包括负载均衡，限流熔断，监控报警，服务注册和发现等等必要的组件。不过，这就不属于本篇文章讨论的主题了，我们还是先继续看下如何使用gRPC。
 
-# gRPC HelloWorld实例详解
+# 2、gRPC HelloWorld实例详解
 
 gRPC的使用通常包括如下几个步骤：
 
-№通过protobuf来定义接口和数据类型
+**通过protobuf来定义接口和数据类型**
 
-№编写gRPCserver端代码
+**编写gRPCserver端代码**
 
-№编写gRPCclient端代码
+**编写gRPCclient端代码**
 
 下面来通过一个实例来详细讲解上述的三步。
 
-## **№定义接口和数据类型**
+## 2.1.定义接口和数据类型
 
-### √通过protobuf定义接口和数据类型（python版本）
+### 2.1.1通过protobuf定义接口和数据类型（python版本）
 
 ```python
 syntax = "proto3";
@@ -72,7 +72,7 @@ python -m grpc_tools.protoc -I=./protos --python_out=./rpc_package --grpc_python
 
 这个指令会自动生成rpc_package文件夹中的helloworld_pb2.py和helloworld_pb2_grpc.py，但是不会自动生成__init__.py文件，需要我们手动添加
 
-### √gRPC server端代码
+### 2.1.2gRPC server端代码
 
 ```python
 #!/usr/bin/env python
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     serve()
 ```
 
-### √gRPC client端代码
+### 2.1.3gRPC client端代码
 
 ```python
 #!/usr/bin/env python
@@ -160,3 +160,4 @@ python hello_server.py
 hello client received: Hello, eric!
 ```
 
+摘自：简书https://www.jianshu.com/p/9c947d98e192
